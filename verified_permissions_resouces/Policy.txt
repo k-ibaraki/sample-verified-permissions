@@ -1,0 +1,6 @@
+permit (
+    principal,
+    action in [IbarakiSampleStore::Action::"Get"],
+    resource == IbarakiSampleStore::ApiEndPoint::"hello"
+)
+when { ["hello"].contains(principal.custom.role) };
