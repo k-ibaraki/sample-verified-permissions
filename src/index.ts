@@ -1,5 +1,10 @@
 import express from 'express'
 import expressOasGenerator from 'express-oas-generator'
+import { vfTest } from './verifiedPermissionsSample'
+import {
+  PORT,
+} from './constants'
+
 
 const app: express.Express = express()
 
@@ -17,8 +22,9 @@ app.use(express.urlencoded({ extended: true }))
 const router: express.Router = express.Router()
 
 // hello world
-router.get('/', (req: express.Request, res: express.Response) => {
-  res.send("Hello World")
+router.get('/', async (req: express.Request, res: express.Response) => {
+  await vfTest();
+  res.send("Hello World");
 })
 
 app.use(router)
@@ -27,4 +33,4 @@ app.use(router)
 expressOasGenerator.init(app, {})
 
 // 3000番ポートでAPIサーバ起動
-app.listen(3000, () => { console.log('Example app listening on port 3000!') })
+app.listen(PORT, () => { console.log(`http://localhost:${PORT}`) })
