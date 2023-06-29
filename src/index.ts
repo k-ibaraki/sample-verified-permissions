@@ -22,9 +22,13 @@ app.use(express.urlencoded({ extended: true }))
 const router: express.Router = express.Router()
 
 // hello world
-router.get('/', async (req: express.Request, res: express.Response) => {
-  await vfTest();
-  res.send("Hello World");
+router.get('/hello', async (req: express.Request, res: express.Response) => {
+  const idToken = req.headers.authorization?.replace("Bearer ", "") ?? "";
+  if (await vfTest(idToken, "hello", "Get")) {
+    res.send("Hello World");
+  } else {
+    res.status(403).send("Not Authorized");
+  }
 })
 
 app.use(router)
