@@ -24,10 +24,14 @@ const router: express.Router = express.Router()
 // hello world
 router.get('/hello', async (req: express.Request, res: express.Response) => {
   const idToken = req.headers.authorization?.replace("Bearer ", "") ?? "";
-  if (await vfTest(idToken, "hello", "Get")) {
-    res.send("Hello World");
-  } else {
-    res.status(403).send("Not Authorized");
+  try {
+    if (await vfTest(idToken, "hello", "Get")) {
+      res.send("Hello World");
+    } else {
+      res.status(403).send("Not Authorized");
+    }
+  } catch (err: any) {
+    res.status(400).send(err.message);
   }
 })
 

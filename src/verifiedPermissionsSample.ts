@@ -24,9 +24,9 @@ export const vfTest = async (idToken: string, resource: string, action: string):
     // verified permissions を使って認可判定
     const response = await client.send(command);
     console.log("decision: " + response.decision);
-    return response.decision == 'ALLOW';
+    return (response.decision == 'ALLOW');
   } catch (err: any) {
     console.log("err: " + err.message);
+    throw err;
   }
-  return false;
 }
