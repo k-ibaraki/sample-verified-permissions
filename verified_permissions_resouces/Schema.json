@@ -1,19 +1,8 @@
 {
   "IbarakiSampleStore": {
-    "actions": {
-      "Get": {
-        "appliesTo": {
-          "principalTypes": [
-            "User"
-          ],
-          "resourceTypes": [
-            "ApiEndPoint"
-          ]
-        }
-      }
-    },
     "entityTypes": {
       "User": {
+        "memberOfTypes": [],
         "shape": {
           "attributes": {
             "custom": {
@@ -27,18 +16,29 @@
               "type": "Record"
             },
             "email": {
-              "required": true,
-              "type": "String"
+              "type": "String",
+              "required": true
             }
           },
           "type": "Record"
-        },
-        "memberOfTypes": []
+        }
       },
       "ApiEndPoint": {
         "shape": {
           "attributes": {},
           "type": "Record"
+        }
+      }
+    },
+    "actions": {
+      "GET": {
+        "appliesTo": {
+          "principalTypes": [
+            "User"
+          ],
+          "resourceTypes": [
+            "ApiEndPoint"
+          ]
         }
       }
     }
